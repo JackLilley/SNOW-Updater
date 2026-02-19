@@ -1,0 +1,42 @@
+{
+    "page": {
+        "name": "Update Center Dashboard",
+        "api_name": "x_snc_update_center_dashboard",
+        "description": "Main dashboard for SNOW Update Center showing update summary, risk assessment, and recent installation history.",
+        "url_path": "/update-center",
+        "experience": "Workspace / Configurable Workspace",
+        "application": "x_snc_update_center",
+        "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+    },
+    "layout": {
+        "type": "single-column",
+        "regions": [
+            {
+                "name": "main",
+                "components": [
+                    {
+                        "component": "x_snc_update_center.update-dashboard",
+                        "properties": {},
+                        "events": {
+                            "UPDATE_CENTER#NAVIGATE_TO_LIST": {
+                                "action": "navigate",
+                                "target": "/update-center/updates",
+                                "passPayload": true
+                            },
+                            "UPDATE_CENTER#NAVIGATE_TO_HISTORY": {
+                                "action": "navigate",
+                                "target": "/update-center/history"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "navigation": {
+        "menu_label": "Update Center",
+        "menu_icon": "arrow-up-circle-outline",
+        "menu_order": 100,
+        "parent_module": "Upgrade Center"
+    }
+}

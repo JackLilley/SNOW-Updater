@@ -1,0 +1,1242 @@
+/**
+ * SNOW Update Center - Custom Styles
+ *
+ * These styles supplement the Now Design System components and should be
+ * applied via a UX Theme Style in UI Builder.
+ *
+ * Color palette uses ServiceNow's standard semantic colors for consistency
+ * with the rest of the platform.
+ */
+
+// ── Variables ───────────────────────────────────────────────────────
+
+$uc-primary: #0070d2;
+$uc-success: #2e844a;
+$uc-warning: #fe9339;
+$uc-error: #c23934;
+$uc-critical: #ba0517;
+$uc-purple: #8b5cf6;
+$uc-bg-main: #f4f5f7;
+$uc-bg-card: #ffffff;
+$uc-border: #e0e0e0;
+$uc-text-primary: #1b1c1d;
+$uc-text-secondary: #6b6c6d;
+$uc-radius: 8px;
+$uc-shadow: 0 1px 3px rgba(0, 0, 0, 0.08), 0 1px 2px rgba(0, 0, 0, 0.06);
+$uc-shadow-hover: 0 4px 12px rgba(0, 0, 0, 0.12);
+$uc-transition: 0.2s ease;
+
+// ── Dashboard ───────────────────────────────────────────────────────
+
+.uc-dashboard {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.uc-dashboard-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+}
+
+.uc-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: $uc-text-primary;
+    margin: 0;
+}
+
+.uc-subtitle {
+    font-size: 14px;
+    color: $uc-text-secondary;
+    margin: 4px 0 0;
+}
+
+.uc-header-actions {
+    display: flex;
+    gap: 12px;
+}
+
+// ── Summary Cards ───────────────────────────────────────────────────
+
+.uc-summary-cards {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+    margin-bottom: 32px;
+}
+
+.uc-card {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 24px;
+    box-shadow: $uc-shadow;
+    cursor: pointer;
+    transition: box-shadow $uc-transition, transform $uc-transition;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    position: relative;
+    overflow: hidden;
+
+    &:hover {
+        box-shadow: $uc-shadow-hover;
+        transform: translateY(-2px);
+    }
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        height: 4px;
+    }
+}
+
+.uc-card-total::before { background: $uc-primary; }
+.uc-card-major::before { background: $uc-error; }
+.uc-card-minor::before { background: $uc-warning; }
+.uc-card-patch::before { background: $uc-success; }
+
+.uc-card-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .uc-card-total & { background: rgba($uc-primary, 0.1); color: $uc-primary; }
+    .uc-card-major & { background: rgba($uc-error, 0.1); color: $uc-error; }
+    .uc-card-minor & { background: rgba($uc-warning, 0.1); color: $uc-warning; }
+    .uc-card-patch & { background: rgba($uc-success, 0.1); color: $uc-success; }
+}
+
+.uc-card-number {
+    font-size: 36px;
+    font-weight: 700;
+    line-height: 1;
+    color: $uc-text-primary;
+}
+
+.uc-card-label {
+    font-size: 14px;
+    font-weight: 500;
+    color: $uc-text-secondary;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+.uc-card-badge {
+    font-size: 11px;
+    padding: 2px 8px;
+    border-radius: 4px;
+    align-self: flex-start;
+}
+
+.uc-badge-major { background: rgba($uc-error, 0.1); color: $uc-error; }
+.uc-badge-minor { background: rgba($uc-warning, 0.1); color: $uc-warning; }
+.uc-badge-patch { background: rgba($uc-success, 0.1); color: $uc-success; }
+
+// ── Dashboard Grid ──────────────────────────────────────────────────
+
+.uc-dashboard-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.uc-panel {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 24px;
+    box-shadow: $uc-shadow;
+}
+
+.uc-panel-title {
+    font-size: 18px;
+    font-weight: 600;
+    color: $uc-text-primary;
+    margin: 0 0 20px;
+}
+
+// ── Risk Bars ───────────────────────────────────────────────────────
+
+.uc-risk-bars {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.uc-risk-row {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.uc-risk-label {
+    width: 80px;
+    font-size: 13px;
+    font-weight: 500;
+    color: $uc-text-secondary;
+}
+
+.uc-risk-bar-track {
+    flex: 1;
+    height: 12px;
+    background: #f0f0f0;
+    border-radius: 6px;
+    overflow: hidden;
+}
+
+.uc-risk-bar-fill {
+    height: 100%;
+    border-radius: 6px;
+    transition: width 0.6s ease;
+    min-width: 2px;
+}
+
+.uc-risk-count {
+    width: 30px;
+    text-align: right;
+    font-size: 14px;
+    font-weight: 600;
+    color: $uc-text-primary;
+}
+
+// ── History Items ───────────────────────────────────────────────────
+
+.uc-history-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 12px 0;
+    border-bottom: 1px solid $uc-border;
+
+    &:last-child { border-bottom: none; }
+}
+
+.uc-history-detail {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.uc-history-number {
+    font-size: 14px;
+    font-weight: 600;
+    color: $uc-text-primary;
+}
+
+.uc-history-meta {
+    font-size: 12px;
+    color: $uc-text-secondary;
+}
+
+.uc-empty-state {
+    text-align: center;
+    color: $uc-text-secondary;
+    font-size: 14px;
+    padding: 24px;
+}
+
+// ── Update List ─────────────────────────────────────────────────────
+
+.uc-update-list {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.uc-list-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.uc-filter-tabs {
+    display: flex;
+    gap: 4px;
+    background: #f0f0f0;
+    border-radius: $uc-radius;
+    padding: 4px;
+}
+
+.uc-tab {
+    padding: 8px 16px;
+    border: none;
+    background: transparent;
+    border-radius: 6px;
+    font-size: 13px;
+    font-weight: 500;
+    color: $uc-text-secondary;
+    cursor: pointer;
+    transition: all $uc-transition;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+
+    &:hover { background: rgba(0, 0, 0, 0.05); }
+
+    &.uc-tab-active {
+        background: $uc-bg-card;
+        color: $uc-primary;
+        box-shadow: $uc-shadow;
+    }
+}
+
+.uc-tab-count {
+    background: rgba($uc-primary, 0.1);
+    color: $uc-primary;
+    padding: 2px 8px;
+    border-radius: 10px;
+    font-size: 11px;
+    font-weight: 600;
+
+    .uc-tab-active & {
+        background: $uc-primary;
+        color: white;
+    }
+}
+
+.uc-list-actions {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+}
+
+// ── Data Table ──────────────────────────────────────────────────────
+
+.uc-table-container {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    box-shadow: $uc-shadow;
+    overflow: hidden;
+}
+
+.uc-table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+        padding: 14px 16px;
+        text-align: left;
+        font-size: 12px;
+        font-weight: 600;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+        color: $uc-text-secondary;
+        background: #fafafa;
+        border-bottom: 2px solid $uc-border;
+    }
+
+    td {
+        padding: 14px 16px;
+        font-size: 14px;
+        color: $uc-text-primary;
+        border-bottom: 1px solid $uc-border;
+    }
+}
+
+.uc-th-sortable {
+    cursor: pointer;
+    user-select: none;
+
+    &:hover { color: $uc-primary; }
+}
+
+.uc-row {
+    transition: background $uc-transition;
+
+    &:hover { background: #f8f9fa; }
+    &.uc-row-selected { background: rgba($uc-primary, 0.04); }
+}
+
+.uc-app-name {
+    font-weight: 600;
+    color: $uc-text-primary;
+}
+
+.uc-app-scope {
+    font-size: 12px;
+    color: $uc-text-secondary;
+    font-family: monospace;
+}
+
+.uc-version {
+    font-family: monospace;
+    font-size: 13px;
+}
+
+.uc-version-arrow {
+    color: $uc-primary;
+    font-weight: 700;
+    margin-right: 4px;
+}
+
+.uc-vendor {
+    color: $uc-text-secondary;
+    font-size: 13px;
+}
+
+.uc-loading, .uc-empty {
+    text-align: center;
+    padding: 48px 16px;
+    color: $uc-text-secondary;
+}
+
+// ── Progress Monitor ────────────────────────────────────────────────
+
+.uc-monitor {
+    padding: 24px;
+    max-width: 1400px;
+    margin: 0 auto;
+}
+
+.uc-monitor-loading {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 400px;
+    gap: 16px;
+    color: $uc-text-secondary;
+}
+
+.uc-monitor-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 24px;
+}
+
+.uc-monitor-title {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    h1 {
+        font-size: 24px;
+        font-weight: 700;
+        margin: 0;
+    }
+}
+
+.uc-monitor-number {
+    font-size: 14px;
+    color: $uc-text-secondary;
+    font-family: monospace;
+}
+
+.uc-monitor-meta {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.uc-elapsed, .uc-requested-by {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 14px;
+    color: $uc-text-secondary;
+}
+
+// ── Overall Progress Bar ────────────────────────────────────────────
+
+.uc-overall-progress {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 24px;
+    box-shadow: $uc-shadow;
+    margin-bottom: 24px;
+}
+
+.uc-progress-stats {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 12px;
+}
+
+.uc-progress-percent {
+    font-size: 32px;
+    font-weight: 700;
+    color: $uc-text-primary;
+}
+
+.uc-progress-detail {
+    font-size: 14px;
+    color: $uc-text-secondary;
+}
+
+.uc-progress-bar-track {
+    height: 16px;
+    background: #f0f0f0;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+.uc-progress-bar-fill {
+    height: 100%;
+    border-radius: 8px;
+    position: relative;
+
+    &::after {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        right: 0;
+        bottom: 0;
+        background: linear-gradient(
+            90deg,
+            transparent 0%,
+            rgba(255, 255, 255, 0.2) 50%,
+            transparent 100%
+        );
+        animation: shimmer 2s infinite;
+    }
+}
+
+.uc-progress-active { background: linear-gradient(135deg, $uc-primary, #2196f3); }
+.uc-progress-success { background: $uc-success; &::after { animation: none; } }
+.uc-progress-warning { background: $uc-warning; &::after { animation: none; } }
+.uc-progress-error { background: $uc-error; &::after { animation: none; } }
+
+@keyframes shimmer {
+    0% { transform: translateX(-100%); }
+    100% { transform: translateX(100%); }
+}
+
+// ── Monitor Content Grid ────────────────────────────────────────────
+
+.uc-monitor-content {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+}
+
+.uc-section-title {
+    font-size: 16px;
+    font-weight: 600;
+    margin: 0 0 16px;
+    color: $uc-text-primary;
+}
+
+// ── App Cards ───────────────────────────────────────────────────────
+
+.uc-app-cards {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 24px;
+    box-shadow: $uc-shadow;
+}
+
+.uc-cards-list {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    max-height: 600px;
+    overflow-y: auto;
+}
+
+.uc-app-card {
+    border: 1px solid $uc-border;
+    border-radius: 8px;
+    padding: 16px;
+    transition: all $uc-transition;
+
+    &.uc-app-card-installing {
+        border-color: $uc-primary;
+        background: rgba($uc-primary, 0.02);
+    }
+    &.uc-app-card-completed {
+        border-color: $uc-success;
+        background: rgba($uc-success, 0.02);
+        opacity: 0.8;
+    }
+    &.uc-app-card-failed {
+        border-color: $uc-error;
+        background: rgba($uc-error, 0.02);
+    }
+}
+
+.uc-app-card-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.uc-app-card-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.uc-app-card-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: $uc-text-primary;
+}
+
+.uc-app-card-version {
+    font-size: 12px;
+    color: $uc-text-secondary;
+    font-family: monospace;
+}
+
+.uc-app-card-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-top: 12px;
+}
+
+.uc-mini-progress-track {
+    flex: 1;
+    height: 6px;
+    background: #f0f0f0;
+    border-radius: 3px;
+    overflow: hidden;
+}
+
+.uc-mini-progress-fill {
+    height: 100%;
+    background: $uc-primary;
+    border-radius: 3px;
+    transition: width 0.5s ease;
+}
+
+.uc-mini-progress-text {
+    font-size: 12px;
+    font-weight: 600;
+    color: $uc-primary;
+    min-width: 35px;
+}
+
+.uc-app-card-status {
+    font-size: 12px;
+    color: $uc-text-secondary;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+.uc-app-card-meta {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: $uc-success;
+}
+
+.uc-app-card-error {
+    display: flex;
+    align-items: flex-start;
+    gap: 6px;
+    margin-top: 8px;
+    font-size: 12px;
+    color: $uc-error;
+    background: rgba($uc-error, 0.05);
+    padding: 8px;
+    border-radius: 4px;
+}
+
+// ── Activity Feed ───────────────────────────────────────────────────
+
+.uc-activity-feed {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 24px;
+    box-shadow: $uc-shadow;
+    display: flex;
+    flex-direction: column;
+}
+
+.uc-feed-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+}
+
+.uc-autoscroll-toggle {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 4px 10px;
+    border: 1px solid $uc-border;
+    border-radius: 4px;
+    background: transparent;
+    font-size: 11px;
+    color: $uc-text-secondary;
+    cursor: pointer;
+
+    &.active {
+        background: rgba($uc-primary, 0.1);
+        border-color: $uc-primary;
+        color: $uc-primary;
+    }
+}
+
+.uc-feed-list {
+    flex: 1;
+    max-height: 600px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.uc-feed-entry {
+    display: flex;
+    gap: 10px;
+    padding: 8px 12px;
+    border-radius: 6px;
+    font-size: 13px;
+    transition: background $uc-transition;
+
+    &:hover { background: rgba(0, 0, 0, 0.02); }
+}
+
+.uc-feed-time {
+    min-width: 50px;
+    font-size: 11px;
+    color: $uc-text-secondary;
+    padding-top: 2px;
+}
+
+.uc-feed-icon {
+    flex-shrink: 0;
+    padding-top: 1px;
+}
+
+.uc-feed-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.uc-feed-message {
+    color: $uc-text-primary;
+}
+
+.uc-feed-app {
+    font-size: 11px;
+    color: $uc-primary;
+    font-weight: 500;
+}
+
+.uc-feed-details {
+    font-size: 11px;
+    color: $uc-text-secondary;
+    margin-top: 4px;
+    padding: 6px 8px;
+    background: #f8f9fa;
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.uc-feed-empty {
+    text-align: center;
+    color: $uc-text-secondary;
+    padding: 48px 16px;
+    font-style: italic;
+}
+
+// ── Activity Feed Standalone ────────────────────────────────────────
+
+.uc-activity-standalone {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+}
+
+.uc-feed-toolbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 12px 0;
+    border-bottom: 1px solid $uc-border;
+}
+
+.uc-feed-filters {
+    display: flex;
+    gap: 4px;
+}
+
+.uc-feed-filter-btn {
+    padding: 4px 10px;
+    border: 1px solid transparent;
+    background: transparent;
+    border-radius: 4px;
+    font-size: 12px;
+    color: $uc-text-secondary;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 4px;
+
+    &:hover { background: #f0f0f0; }
+    &.active {
+        background: rgba($uc-primary, 0.1);
+        color: $uc-primary;
+        border-color: rgba($uc-primary, 0.2);
+    }
+}
+
+.uc-filter-count {
+    font-size: 10px;
+    font-weight: 600;
+    padding: 1px 5px;
+    border-radius: 8px;
+    background: rgba(0, 0, 0, 0.06);
+}
+
+.uc-feed-count {
+    font-size: 12px;
+    color: $uc-text-secondary;
+}
+
+.uc-feed-scroll {
+    flex: 1;
+    overflow-y: auto;
+    padding: 8px 0;
+}
+
+.uc-scroll-to-bottom {
+    position: sticky;
+    bottom: 8px;
+    align-self: center;
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    padding: 6px 16px;
+    background: $uc-primary;
+    color: white;
+    border: none;
+    border-radius: 20px;
+    font-size: 12px;
+    cursor: pointer;
+    box-shadow: $uc-shadow;
+    animation: bounce 1.5s infinite;
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-4px); }
+}
+
+// ── Standalone Activity Entry ───────────────────────────────────────
+
+.uc-entry {
+    padding: 12px 16px;
+    border-radius: 8px;
+    margin-bottom: 8px;
+}
+
+.uc-entry-compact {
+    padding: 6px 12px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 2px;
+
+    .uc-entry-time {
+        min-width: 45px;
+        font-size: 10px;
+        color: $uc-text-secondary;
+    }
+
+    .uc-entry-msg {
+        font-size: 12px;
+        color: $uc-text-primary;
+    }
+}
+
+.uc-entry-header {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-bottom: 6px;
+}
+
+.uc-entry-timestamp {
+    font-size: 11px;
+    color: $uc-text-secondary;
+    font-family: monospace;
+}
+
+.uc-entry-relative {
+    font-size: 11px;
+    color: $uc-text-secondary;
+    margin-left: auto;
+}
+
+.uc-entry-body {
+    margin-left: 32px;
+}
+
+.uc-entry-message {
+    font-size: 14px;
+    color: $uc-text-primary;
+    margin: 0;
+}
+
+.uc-entry-app {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+    font-size: 12px;
+    margin-top: 4px;
+}
+
+.uc-entry-details {
+    margin: 8px 0 0 32px;
+    font-size: 12px;
+    color: $uc-text-secondary;
+    padding: 8px 12px;
+    background: rgba(0, 0, 0, 0.03);
+    border-radius: 4px;
+    font-family: monospace;
+    white-space: pre-wrap;
+}
+
+.uc-entry-progress {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin: 8px 0 0 32px;
+
+    .uc-entry-progress-track {
+        flex: 1;
+        height: 4px;
+        background: rgba(0, 0, 0, 0.08);
+        border-radius: 2px;
+        overflow: hidden;
+    }
+
+    .uc-entry-progress-fill {
+        height: 100%;
+        border-radius: 2px;
+        transition: width 0.5s ease;
+    }
+
+    span {
+        font-size: 11px;
+        font-weight: 600;
+        min-width: 30px;
+    }
+}
+
+.uc-feed-empty-state {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+    padding: 48px 16px;
+    color: $uc-text-secondary;
+}
+
+// ── Confirmation Dialog ─────────────────────────────────────────────
+
+.uc-dialog-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.15s ease;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.uc-dialog {
+    background: $uc-bg-card;
+    border-radius: 12px;
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+    width: 640px;
+    max-width: 90vw;
+    max-height: 80vh;
+    display: flex;
+    flex-direction: column;
+    animation: slideUp 0.2s ease;
+}
+
+.uc-dialog-sm {
+    width: 440px;
+}
+
+@keyframes slideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+}
+
+.uc-dialog-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 24px;
+    border-bottom: 1px solid $uc-border;
+
+    h2 {
+        font-size: 18px;
+        font-weight: 600;
+        margin: 0;
+    }
+}
+
+.uc-dialog-body {
+    padding: 24px;
+    overflow-y: auto;
+    flex: 1;
+}
+
+.uc-dialog-summary {
+    font-size: 14px;
+    color: $uc-text-secondary;
+    margin: 0 0 16px;
+}
+
+.uc-dialog-footer {
+    display: flex;
+    justify-content: flex-end;
+    gap: 12px;
+    padding: 16px 24px;
+    border-top: 1px solid $uc-border;
+}
+
+.uc-confirm-list {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-bottom: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.uc-confirm-item {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px 12px;
+    border: 1px solid $uc-border;
+    border-radius: 6px;
+    font-size: 13px;
+}
+
+.uc-confirm-name {
+    flex: 1;
+    font-weight: 500;
+}
+
+.uc-confirm-version {
+    font-family: monospace;
+    font-size: 12px;
+    color: $uc-text-secondary;
+}
+
+.uc-deps-loading {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    padding: 16px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    color: $uc-text-secondary;
+    font-size: 13px;
+}
+
+.uc-deps-warnings {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba($uc-warning, 0.05);
+    border: 1px solid rgba($uc-warning, 0.2);
+    border-radius: 6px;
+
+    h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: $uc-warning;
+        margin: 0 0 12px;
+    }
+}
+
+.uc-warning-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: $uc-text-primary;
+    margin-bottom: 8px;
+}
+
+.uc-deps-conflicts {
+    margin-top: 16px;
+    padding: 16px;
+    background: rgba($uc-error, 0.05);
+    border: 1px solid rgba($uc-error, 0.2);
+    border-radius: 6px;
+
+    h3 {
+        font-size: 14px;
+        font-weight: 600;
+        color: $uc-error;
+        margin: 0 0 12px;
+    }
+}
+
+.uc-conflict-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 8px;
+    font-size: 13px;
+    color: $uc-error;
+    margin-bottom: 8px;
+}
+
+// ── Update Card Component ───────────────────────────────────────────
+
+.uc-update-card {
+    background: $uc-bg-card;
+    border-radius: $uc-radius;
+    padding: 16px;
+    box-shadow: $uc-shadow;
+    transition: all $uc-transition;
+
+    &:hover {
+        box-shadow: $uc-shadow-hover;
+    }
+
+    &.uc-card-selected {
+        box-shadow: 0 0 0 2px $uc-primary, $uc-shadow;
+    }
+}
+
+.uc-ucard-header {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 12px;
+}
+
+.uc-ucard-title {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.uc-ucard-name {
+    font-weight: 600;
+    font-size: 14px;
+    color: $uc-text-primary;
+}
+
+.uc-ucard-scope {
+    font-size: 11px;
+    color: $uc-text-secondary;
+    font-family: monospace;
+}
+
+.uc-ucard-versions {
+    display: flex;
+    align-items: center;
+    gap: 16px;
+    padding: 12px;
+    background: #f8f9fa;
+    border-radius: 6px;
+    margin-bottom: 12px;
+}
+
+.uc-ucard-ver-from, .uc-ucard-ver-to {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+}
+
+.uc-ver-label {
+    font-size: 10px;
+    text-transform: uppercase;
+    color: $uc-text-secondary;
+    letter-spacing: 0.5px;
+}
+
+.uc-ver-value {
+    font-family: monospace;
+    font-size: 15px;
+    font-weight: 600;
+    color: $uc-text-primary;
+}
+
+.uc-ver-highlight {
+    font-weight: 700;
+}
+
+.uc-ucard-arrow {
+    padding: 0 8px;
+}
+
+.uc-ucard-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.uc-ucard-meta {
+    display: flex;
+    gap: 16px;
+    font-size: 12px;
+    color: $uc-text-secondary;
+}
+
+.uc-ucard-risk, .uc-ucard-vendor, .uc-ucard-date {
+    display: flex;
+    align-items: center;
+    gap: 4px;
+}
+
+// ── Responsive ──────────────────────────────────────────────────────
+
+@media (max-width: 1200px) {
+    .uc-summary-cards {
+        grid-template-columns: repeat(2, 1fr);
+    }
+
+    .uc-dashboard-grid,
+    .uc-monitor-content {
+        grid-template-columns: 1fr;
+    }
+}
+
+@media (max-width: 768px) {
+    .uc-summary-cards {
+        grid-template-columns: 1fr;
+    }
+
+    .uc-dashboard-header,
+    .uc-list-toolbar {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .uc-dialog {
+        width: 95vw;
+    }
+}

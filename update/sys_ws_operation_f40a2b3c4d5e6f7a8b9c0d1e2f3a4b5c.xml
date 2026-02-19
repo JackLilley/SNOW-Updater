@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ws_operation">
+    <sys_ws_operation action="INSERT_OR_UPDATE">
+        <active>true</active>
+        <consumes>application/json</consumes>
+        <consumes_customized>false</consumes_customized>
+        <default_operation_uri/>
+        <enforce_acl>cf9d01d3e73003009d6247e603f6a990</enforce_acl>
+        <http_method>GET</http_method>
+        <name>Batch Status</name>
+        <operation_script><![CDATA[(function process(request, response) {
+    var batchRequestId = request.pathParams.batchRequestId;
+
+    if (!batchRequestId) {
+        response.setStatus(400);
+        response.setBody({ error: 'batchRequestId is required' });
+        return;
+    }
+
+    var manager = new x_snc_update_center.BatchUpdateManager();
+    var result = manager.getBatchStatus(batchRequestId);
+
+    if (!result.success) {
+        response.setStatus(404);
+        response.setBody(result);
+        return;
+    }
+
+    response.setStatus(200);
+    response.setBody(result);
+})(request, response);]]></operation_script>
+        <operation_uri>/api/x_snc_update_center/v1/batch-status/{batchRequestId}</operation_uri>
+        <produces>application/json</produces>
+        <produces_customized>false</produces_customized>
+        <relative_path>/batch-status/{batchRequestId}</relative_path>
+        <request_example/>
+        <requires_acl_authorization>true</requires_acl_authorization>
+        <requires_authentication>true</requires_authentication>
+        <requires_snc_internal_role>false</requires_snc_internal_role>
+        <short_description>Returns full status of a batch request including all items and activity</short_description>
+        <sys_class_name>sys_ws_operation</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-19 00:00:00</sys_created_on>
+        <sys_id>f40a2b3c4d5e6f7a8b9c0d1e2f3a4b5c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Batch Status</sys_name>
+        <sys_package display_value="SNOW Update Center" source="x_snc_update_center">b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SNOW Update Center">b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3</sys_scope>
+        <sys_update_name>sys_ws_operation_f40a2b3c4d5e6f7a8b9c0d1e2f3a4b5c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-19 00:00:00</sys_updated_on>
+        <web_service_definition display_value="SNOW Update Center API">e10a2b3c4d5e6f7a8b9c0d1e2f3a4b5c</web_service_definition>
+        <web_service_version display_value="v1"></web_service_version>
+    </sys_ws_operation>
+</record_update>

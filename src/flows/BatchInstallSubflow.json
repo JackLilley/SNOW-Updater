@@ -1,0 +1,90 @@
+{
+    "subflow": {
+        "name": "Batch Install Updates",
+        "api_name": "x_snc_update_center.batch_install_updates",
+        "description": "Orchestrates a batch installation of Store applications using the CI/CD Batch Install action. Creates a manifest from selected app versions, calls the Batch Install action, and returns progress tracking information.",
+        "run_as": "system",
+        "application": "x_snc_update_center"
+    },
+    "inputs": [
+        {
+            "label": "Applications",
+            "name": "apps",
+            "type": "String",
+            "description": "Comma-separated sys_ids of sys_app_version records to install",
+            "mandatory": true
+        }
+    ],
+    "outputs": [
+        {
+            "label": "Progress ID",
+            "name": "progress_id",
+            "type": "String",
+            "description": "sys_id of the sys_progress_worker tracking this installation"
+        },
+        {
+            "label": "Status Message",
+            "name": "status_message",
+            "type": "String",
+            "description": "Output status message from the batch installer"
+        }
+    ],
+    "flow_variables": [
+        {
+            "label": "Batch Manifest",
+            "name": "batch_manifest",
+            "type": "String",
+            "description": "JSON payload for the CI/CD Batch Install action"
+        }
+    ],
+    "actions": [
+        {
+            "step": 1,
+            "name": "Look Up App Versions",
+            "action": "Lookup Records",
+            "config": {
+                "table": "sys_app_version",
+                "conditions": "sys_id IN {{inputs.apps}}"
+            }
+        },
+        {
+            "step": 2,
+            "name": "Build Batch Manifest",
+            "action": "Set Flow Variables",
+            "config": {
+                "variable": "batch_manifest",
+                "script": "build_batch_manifest.js"
+            },
+            "script_content": "var payload = '{\"name\": \"SNOW Update Center Batch Install\", \"notes\": \"Batch installation via SNOW Update Center\", \"packages\": [';\nvar loop = 0;\nwhile (fd_data._1__look_up_records.records.next()) {\n    if (loop++ > 0) payload += ',';\n    payload += '{\"id\": \"' + fd_data._1__look_up_records.records.getValue('source_app_id') + '\", ';\n    payload += '\"type\": \"application\", ';\n    payload += '\"load_demo_data\": false, ';\n    payload += '\"requested_version\": \"' + fd_data._1__look_up_records.records.getValue('version') + '\", ';\n    payload += '\"notes\": \"' + fd_data._1__look_up_records.records.getDisplayValue() + '\"}';\n}\npayload += ']}';\nreturn payload;"
+        },
+        {
+            "step": 3,
+            "name": "Call CI/CD Batch Install",
+            "action": "sn_cicd.Batch Install",
+            "config": {
+                "batch_plan": "{{flow_variables.batch_manifest}}",
+                "credentials": "{{credential_alias}}",
+                "instance_url": "{{instance_url}}",
+                "notes": "Triggered by SNOW Update Center at {{now}}"
+            }
+        },
+        {
+            "step": 4,
+            "name": "Assign Outputs",
+            "action": "Set Flow Variables",
+            "config": {
+                "outputs": {
+                    "progress_id": "{{step_3.progress_id}}",
+                    "status_message": "{{step_3.status_message}}"
+                }
+            }
+        }
+    ],
+    "error_handling": {
+        "on_error": "Continue with error output",
+        "error_output": {
+            "progress_id": "",
+            "status_message": "{{error.message}}"
+        }
+    }
+}

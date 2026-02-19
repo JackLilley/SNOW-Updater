@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?><record_update table="sys_ui_action">
+    <sys_ui_action action="INSERT_OR_UPDATE">
+        <action_name>install_selected_updates</action_name>
+        <active>true</active>
+        <client>true</client>
+        <comments/>
+        <condition>gs.hasRole('x_snc_update_center.admin')</condition>
+        <hint>Select updates from the list and click to install them as a batch</hint>
+        <isolate_script>false</isolate_script>
+        <list_banner_button>true</list_banner_button>
+        <list_choice>true</list_choice>
+        <list_context_menu>false</list_context_menu>
+        <list_link>false</list_link>
+        <list_save_with_form_button>false</list_save_with_form_button>
+        <list_v2_compatible>true</list_v2_compatible>
+        <name>Install Selected Updates</name>
+        <onclick>installSelectedUpdates()</onclick>
+        <order>100</order>
+        <script><![CDATA[function installSelectedUpdates() {
+    var selectedRecords = g_list.getChecked();
+    if (!selectedRecords || selectedRecords.length === 0) {
+        g_form.addErrorMessage('Please select at least one update to install.');
+        return false;
+    }
+
+    var count = selectedRecords.split(',').length;
+    var dialogClass = typeof GlideModal !== 'undefined' ? GlideModal : GlideDialogWindow;
+    var dialog = new dialogClass('x_snc_update_center_confirm_install');
+    dialog.setTitle('Confirm Batch Installation');
+    dialog.setSize(680, 500);
+    dialog.setPreference('sysparm_app_versions', selectedRecords);
+    dialog.setPreference('sysparm_count', count);
+    dialog.render();
+
+    return false;
+}]]></script>
+        <show_insert>false</show_insert>
+        <show_update>true</show_update>
+        <sys_class_name>sys_ui_action</sys_class_name>
+        <sys_created_by>admin</sys_created_by>
+        <sys_created_on>2026-02-19 00:00:00</sys_created_on>
+        <sys_id>a10a2b3c4d5e6f7a8b9c0d1e2f3a4b5c</sys_id>
+        <sys_mod_count>0</sys_mod_count>
+        <sys_name>Install Selected Updates</sys_name>
+        <sys_package display_value="SNOW Update Center" source="x_snc_update_center">b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3</sys_package>
+        <sys_policy/>
+        <sys_scope display_value="SNOW Update Center">b8a9c0d1e2f3a4b5c6d7e8f9a0b1c2d3</sys_scope>
+        <sys_update_name>sys_ui_action_a10a2b3c4d5e6f7a8b9c0d1e2f3a4b5c</sys_update_name>
+        <sys_updated_by>admin</sys_updated_by>
+        <sys_updated_on>2026-02-19 00:00:00</sys_updated_on>
+        <table>x_snc_update_center_available_update</table>
+    </sys_ui_action>
+</record_update>

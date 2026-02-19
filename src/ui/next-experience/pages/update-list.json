@@ -1,0 +1,46 @@
+{
+    "page": {
+        "name": "Available Updates",
+        "api_name": "x_snc_update_center_updates",
+        "description": "Browse and select available Store updates for batch installation. Supports filtering by update level, risk assessment, and search.",
+        "url_path": "/update-center/updates",
+        "experience": "Workspace / Configurable Workspace",
+        "application": "x_snc_update_center",
+        "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+    },
+    "layout": {
+        "type": "single-column",
+        "regions": [
+            {
+                "name": "main",
+                "components": [
+                    {
+                        "component": "x_snc_update_center.update-list",
+                        "properties": {
+                            "initialFilter": "@context.url.params.filter"
+                        },
+                        "events": {
+                            "UPDATE_CENTER#START_INSTALL": {
+                                "action": "script",
+                                "handler": "startBatchInstall",
+                                "description": "Calls the batch install API and navigates to the progress monitor"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "client_scripts": {
+        "startBatchInstall": {
+            "description": "Handles the install confirmation and navigates to progress monitor",
+            "script": "async function startBatchInstall(payload) {\n    const response = await fetch('/api/x_snc_update_center/v1/batch-install', {\n        method: 'POST',\n        headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },\n        body: JSON.stringify({\n            appVersionSysIds: payload.appVersionSysIds,\n            execute: true\n        })\n    });\n    const data = await response.json();\n    if (data.result && data.result.batchRequestId) {\n        window.location.href = '/update-center/progress/' + data.result.batchRequestId;\n    }\n}"
+        }
+    },
+    "navigation": {
+        "menu_label": "Available Updates",
+        "menu_icon": "list-outline",
+        "menu_order": 110,
+        "parent_module": "Upgrade Center"
+    }
+}

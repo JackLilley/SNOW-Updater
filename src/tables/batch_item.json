@@ -1,0 +1,107 @@
+{
+    "table": {
+        "name": "x_snc_update_center_batch_item",
+        "label": "Batch Update Item",
+        "extends": null,
+        "is_extendable": false
+    },
+    "fields": [
+        {
+            "column_label": "Batch Request",
+            "column_name": "batch_request",
+            "type": "reference",
+            "reference": "x_snc_update_center_batch_request",
+            "mandatory": true
+        },
+        {
+            "column_label": "Application",
+            "column_name": "application",
+            "type": "reference",
+            "reference": "sys_store_app",
+            "mandatory": true
+        },
+        {
+            "column_label": "Application Name",
+            "column_name": "application_name",
+            "type": "string"
+        },
+        {
+            "column_label": "App Version",
+            "column_name": "app_version",
+            "type": "reference",
+            "reference": "sys_app_version"
+        },
+        {
+            "column_label": "From Version",
+            "column_name": "from_version",
+            "type": "string"
+        },
+        {
+            "column_label": "To Version",
+            "column_name": "to_version",
+            "type": "string"
+        },
+        {
+            "column_label": "Update Level",
+            "column_name": "update_level",
+            "type": "choice",
+            "choices": [
+                { "label": "Major", "value": "major" },
+                { "label": "Minor", "value": "minor" },
+                { "label": "Patch", "value": "patch" }
+            ]
+        },
+        {
+            "column_label": "State",
+            "column_name": "state",
+            "type": "choice",
+            "choices": [
+                { "label": "Queued", "value": "queued" },
+                { "label": "Installing", "value": "installing" },
+                { "label": "Completed", "value": "completed" },
+                { "label": "Failed", "value": "failed" },
+                { "label": "Skipped", "value": "skipped" }
+            ],
+            "default_value": "queued"
+        },
+        {
+            "column_label": "Install Order",
+            "column_name": "install_order",
+            "type": "integer",
+            "default_value": "100"
+        },
+        {
+            "column_label": "Start Time",
+            "column_name": "start_time",
+            "type": "glide_date_time"
+        },
+        {
+            "column_label": "End Time",
+            "column_name": "end_time",
+            "type": "glide_date_time"
+        },
+        {
+            "column_label": "Duration (seconds)",
+            "column_name": "duration_seconds",
+            "type": "integer"
+        },
+        {
+            "column_label": "Error Message",
+            "column_name": "error_message",
+            "type": "string",
+            "max_length": "4000"
+        },
+        {
+            "column_label": "Progress Percent",
+            "column_name": "progress_percent",
+            "type": "integer",
+            "default_value": "0"
+        },
+        {
+            "column_label": "Status Message",
+            "column_name": "status_message",
+            "type": "string",
+            "max_length": "1000"
+        }
+    ]
+}

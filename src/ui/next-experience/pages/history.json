@@ -1,0 +1,60 @@
+{
+    "page": {
+        "name": "Installation History",
+        "api_name": "x_snc_update_center_history",
+        "description": "View past batch installation requests with outcomes, timing, and activity logs.",
+        "url_path": "/update-center/history",
+        "experience": "Workspace / Configurable Workspace",
+        "application": "x_snc_update_center",
+        "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+    },
+    "layout": {
+        "type": "single-column",
+        "regions": [
+            {
+                "name": "main",
+                "components": [
+                    {
+                        "component": "now-heading",
+                        "properties": {
+                            "label": "Installation History",
+                            "variant": "header-primary"
+                        }
+                    },
+                    {
+                        "component": "now-record-list-connected",
+                        "properties": {
+                            "table": "x_snc_update_center_batch_request",
+                            "query": "state!=draft^ORDERBYDESCsys_created_on",
+                            "columns": [
+                                "number",
+                                "state",
+                                "requested_by",
+                                "total_apps",
+                                "completed_apps",
+                                "failed_apps",
+                                "actual_start",
+                                "actual_end",
+                                "duration_seconds",
+                                "overall_progress"
+                            ],
+                            "page_size": 20
+                        },
+                        "events": {
+                            "NOW_RECORD_LIST#ROW_CLICKED": {
+                                "action": "navigate",
+                                "target": "/update-center/progress/{{event.sys_id}}"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "navigation": {
+        "menu_label": "Installation History",
+        "menu_icon": "clock-outline",
+        "menu_order": 120,
+        "parent_module": "Upgrade Center"
+    }
+}

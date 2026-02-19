@@ -1,0 +1,46 @@
+{
+    "subflow": {
+        "name": "Monitor Batch Progress",
+        "api_name": "x_snc_update_center.monitor_batch_progress",
+        "description": "Monitors a running batch installation by polling the progress worker and updating batch items and activity logs in real-time. Runs in the background and polls until installation completes or times out.",
+        "run_as": "system",
+        "application": "x_snc_update_center"
+    },
+    "inputs": [
+        {
+            "label": "Batch Request ID",
+            "name": "batch_request_id",
+            "type": "String",
+            "mandatory": true
+        },
+        {
+            "label": "Progress Worker ID",
+            "name": "progress_worker_id",
+            "type": "String",
+            "mandatory": true
+        }
+    ],
+    "outputs": [
+        {
+            "label": "Final State",
+            "name": "final_state",
+            "type": "String"
+        },
+        {
+            "label": "Summary",
+            "name": "summary",
+            "type": "String"
+        }
+    ],
+    "actions": [
+        {
+            "step": 1,
+            "name": "Poll Progress Worker",
+            "action": "Script",
+            "description": "Continuously polls the progress worker and updates batch request records with real-time status. Writes activity log entries for each status change detected.",
+            "script_content": "monitor_batch_progress_script.js"
+        }
+    ],
+    "script_file": "MonitorProgressScript.js",
+    "notes": "This subflow runs in the background. It polls the sys_progress_worker record at intervals (3s while starting, 10s while running) and syncs status back to the batch request and batch item records. It also writes activity log entries for visibility in the UI."
+}

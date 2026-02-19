@@ -1,0 +1,38 @@
+{
+    "page": {
+        "name": "Installation Progress",
+        "api_name": "x_snc_update_center_progress",
+        "description": "Real-time installation progress monitor with per-application status cards and a live activity feed. Similar to Application Manager's activity monitor but with richer detail.",
+        "url_path": "/update-center/progress/:batchRequestId",
+        "experience": "Workspace / Configurable Workspace",
+        "application": "x_snc_update_center",
+        "roles": ["x_snc_update_center.admin"]
+    },
+    "layout": {
+        "type": "single-column",
+        "regions": [
+            {
+                "name": "main",
+                "components": [
+                    {
+                        "component": "x_snc_update_center.progress-monitor",
+                        "properties": {
+                            "batchRequestId": "@context.url.params.batchRequestId"
+                        },
+                        "events": {
+                            "UPDATE_CENTER#INSTALL_COMPLETE": {
+                                "action": "notify",
+                                "message": "Installation complete!",
+                                "type": "positive"
+                            }
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "navigation": {
+        "hidden": true,
+        "notes": "This page is navigated to dynamically after starting an installation"
+    }
+}

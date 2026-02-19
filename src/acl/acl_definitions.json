@@ -1,0 +1,128 @@
+{
+    "roles": [
+        {
+            "name": "x_snc_update_center.admin",
+            "description": "Full access to SNOW Update Center. Can view updates, install them, view history, and configure settings.",
+            "elevated_privilege": false,
+            "assignable_by": "admin"
+        },
+        {
+            "name": "x_snc_update_center.reviewer",
+            "description": "Read-only access to SNOW Update Center. Can view available updates and installation history but cannot install.",
+            "elevated_privilege": false,
+            "assignable_by": "admin"
+        }
+    ],
+    "acl_rules": [
+        {
+            "table": "x_snc_update_center_available_update",
+            "operation": "read",
+            "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"],
+            "description": "Allow admins and reviewers to read available updates"
+        },
+        {
+            "table": "x_snc_update_center_batch_request",
+            "operation": "read",
+            "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"],
+            "description": "Allow admins and reviewers to read batch requests"
+        },
+        {
+            "table": "x_snc_update_center_batch_request",
+            "operation": "create",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can create batch install requests"
+        },
+        {
+            "table": "x_snc_update_center_batch_request",
+            "operation": "write",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can modify batch install requests"
+        },
+        {
+            "table": "x_snc_update_center_batch_request",
+            "operation": "delete",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can delete batch install requests"
+        },
+        {
+            "table": "x_snc_update_center_batch_item",
+            "operation": "read",
+            "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"],
+            "description": "Allow admins and reviewers to read batch items"
+        },
+        {
+            "table": "x_snc_update_center_batch_item",
+            "operation": "create",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can create batch items"
+        },
+        {
+            "table": "x_snc_update_center_batch_item",
+            "operation": "write",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can modify batch items"
+        },
+        {
+            "table": "x_snc_update_center_activity_log",
+            "operation": "read",
+            "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"],
+            "description": "Allow admins and reviewers to read activity logs"
+        },
+        {
+            "table": "x_snc_update_center_activity_log",
+            "operation": "create",
+            "roles": ["x_snc_update_center.admin"],
+            "description": "Only admins can create activity log entries (normally done by system)"
+        },
+        {
+            "table": "x_snc_update_center_activity_log",
+            "operation": "write",
+            "roles": [],
+            "description": "Nobody should modify activity log entries (immutable audit trail)"
+        },
+        {
+            "table": "x_snc_update_center_activity_log",
+            "operation": "delete",
+            "roles": [],
+            "description": "Nobody should delete activity log entries"
+        }
+    ],
+    "rest_api_acl": {
+        "api": "x_snc_update_center_api",
+        "default_roles": ["x_snc_update_center.admin"],
+        "resources": [
+            {
+                "path": "GET /dashboard",
+                "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+            },
+            {
+                "path": "GET /available-updates",
+                "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+            },
+            {
+                "path": "POST /batch-install",
+                "roles": ["x_snc_update_center.admin"]
+            },
+            {
+                "path": "GET /batch-status/*",
+                "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+            },
+            {
+                "path": "GET /activity-feed/*",
+                "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+            },
+            {
+                "path": "POST /cancel/*",
+                "roles": ["x_snc_update_center.admin"]
+            },
+            {
+                "path": "GET /history",
+                "roles": ["x_snc_update_center.admin", "x_snc_update_center.reviewer"]
+            },
+            {
+                "path": "POST /analyze-dependencies",
+                "roles": ["x_snc_update_center.admin"]
+            }
+        ]
+    }
+}

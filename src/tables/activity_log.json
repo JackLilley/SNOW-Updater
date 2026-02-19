@@ -1,0 +1,84 @@
+{
+    "table": {
+        "name": "x_snc_update_center_activity_log",
+        "label": "Update Activity Log",
+        "extends": null,
+        "is_extendable": false
+    },
+    "fields": [
+        {
+            "column_label": "Batch Request",
+            "column_name": "batch_request",
+            "type": "reference",
+            "reference": "x_snc_update_center_batch_request",
+            "mandatory": true
+        },
+        {
+            "column_label": "Batch Item",
+            "column_name": "batch_item",
+            "type": "reference",
+            "reference": "x_snc_update_center_batch_item"
+        },
+        {
+            "column_label": "Timestamp",
+            "column_name": "timestamp",
+            "type": "glide_date_time",
+            "default_value": "javascript:gs.nowDateTime()"
+        },
+        {
+            "column_label": "Activity Type",
+            "column_name": "activity_type",
+            "type": "choice",
+            "choices": [
+                { "label": "Info", "value": "info" },
+                { "label": "Success", "value": "success" },
+                { "label": "Warning", "value": "warning" },
+                { "label": "Error", "value": "error" },
+                { "label": "Progress", "value": "progress" },
+                { "label": "Start", "value": "start" },
+                { "label": "Complete", "value": "complete" },
+                { "label": "Milestone", "value": "milestone" }
+            ]
+        },
+        {
+            "column_label": "Phase",
+            "column_name": "phase",
+            "type": "choice",
+            "choices": [
+                { "label": "Preparation", "value": "preparation" },
+                { "label": "Validation", "value": "validation" },
+                { "label": "Download", "value": "download" },
+                { "label": "Installation", "value": "installation" },
+                { "label": "Post-Install", "value": "post_install" },
+                { "label": "Cleanup", "value": "cleanup" }
+            ]
+        },
+        {
+            "column_label": "Message",
+            "column_name": "message",
+            "type": "string",
+            "max_length": "2000"
+        },
+        {
+            "column_label": "Details",
+            "column_name": "details",
+            "type": "string",
+            "max_length": "8000"
+        },
+        {
+            "column_label": "Application Name",
+            "column_name": "application_name",
+            "type": "string"
+        },
+        {
+            "column_label": "Progress Percent",
+            "column_name": "progress_percent",
+            "type": "integer"
+        },
+        {
+            "column_label": "Sequence",
+            "column_name": "sequence",
+            "type": "integer"
+        }
+    ]
+}

@@ -1,0 +1,113 @@
+{
+    "table": {
+        "name": "x_snc_update_center_batch_request",
+        "label": "Batch Update Request",
+        "extends": "task",
+        "is_extendable": false,
+        "number_prefix": "BUPD",
+        "auto_number": true
+    },
+    "fields": [
+        {
+            "column_label": "Requested By",
+            "column_name": "requested_by",
+            "type": "reference",
+            "reference": "sys_user",
+            "mandatory": true,
+            "default_value": "javascript:gs.getUserID()"
+        },
+        {
+            "column_label": "State",
+            "column_name": "state",
+            "type": "choice",
+            "choices": [
+                { "label": "Draft", "value": "draft" },
+                { "label": "Scheduled", "value": "scheduled" },
+                { "label": "In Progress", "value": "in_progress" },
+                { "label": "Completed", "value": "completed" },
+                { "label": "Failed", "value": "failed" },
+                { "label": "Partially Complete", "value": "partial" },
+                { "label": "Cancelled", "value": "cancelled" }
+            ],
+            "default_value": "draft"
+        },
+        {
+            "column_label": "Total Apps",
+            "column_name": "total_apps",
+            "type": "integer",
+            "read_only": true
+        },
+        {
+            "column_label": "Completed Apps",
+            "column_name": "completed_apps",
+            "type": "integer",
+            "read_only": true,
+            "default_value": "0"
+        },
+        {
+            "column_label": "Failed Apps",
+            "column_name": "failed_apps",
+            "type": "integer",
+            "read_only": true,
+            "default_value": "0"
+        },
+        {
+            "column_label": "Skipped Apps",
+            "column_name": "skipped_apps",
+            "type": "integer",
+            "read_only": true,
+            "default_value": "0"
+        },
+        {
+            "column_label": "Progress Worker",
+            "column_name": "progress_worker",
+            "type": "reference",
+            "reference": "sys_progress_worker"
+        },
+        {
+            "column_label": "Scheduled Start",
+            "column_name": "scheduled_start",
+            "type": "glide_date_time"
+        },
+        {
+            "column_label": "Actual Start",
+            "column_name": "actual_start",
+            "type": "glide_date_time"
+        },
+        {
+            "column_label": "Actual End",
+            "column_name": "actual_end",
+            "type": "glide_date_time"
+        },
+        {
+            "column_label": "Duration (seconds)",
+            "column_name": "duration_seconds",
+            "type": "integer",
+            "read_only": true
+        },
+        {
+            "column_label": "Batch Manifest",
+            "column_name": "batch_manifest",
+            "type": "json",
+            "max_length": "65536"
+        },
+        {
+            "column_label": "Notes",
+            "column_name": "install_notes",
+            "type": "journal"
+        },
+        {
+            "column_label": "Overall Progress",
+            "column_name": "overall_progress",
+            "type": "integer",
+            "default_value": "0",
+            "read_only": true
+        },
+        {
+            "column_label": "Error Summary",
+            "column_name": "error_summary",
+            "type": "string",
+            "max_length": "4000"
+        }
+    ]
+}
